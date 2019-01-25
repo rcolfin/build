@@ -14,7 +14,7 @@ getChangedDirectories()
   fi
   escape_path=`echo $PWD | sed s'/\//\\\\\//g'`;
   local gitRoot=`git rev-parse --show-toplevel`;
-  local cmd="git diff --stat ${hash1} ${hash2} --name-only $PWD 2>/dev/null | xargs --no-run-if-empty dirname";
+  local cmd="git diff --stat ${hash1} ${hash2} --name-only $PWD 2>/dev/null | xargs --no-run-if-empty -i dirname {}";
   cmd="$cmd | xargs --no-run-if-empty -i echo \"${gitRoot}/{}\"";
   cmd="$cmd | sed \"s/$escape_path\/\?//\" | sed s'/\/.*//g' | sort -u";
   local directories=`eval $cmd`;
